@@ -3,10 +3,65 @@
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
 
+\usepackage{listings} % staff to show JavaScript code
+\usepackage{color} % staff to show JavaScript code
+\definecolor{lightgray}{rgb}{.97,.97,.97} % staff to show JavaScript code
+\definecolor{darkgray}{rgb}{.4,.4,.4} % staff to show JavaScript code
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82} % staff to show JavaScript code
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{white},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+%   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
 \begin{document}
 
+%\begin{lstlisting}[caption=My Javascript Example] %example of listining
+%Name.prototype = {
+%  methodName: function(params){
+%    var doubleQuoteString = "some text";
+%    var singleQuoteString = 'some more text';
+%    // this is a comment
+%    if(this.confirmed != null && typeof(this.confirmed) == Boolean && this.confirmed == true){
+%      document.createElement('h3');
+%      $('#system').append("This looks great");
+%      return false;
+%    } else {
+%      throw new Error;
+%    }
+%  }
+%}
+%\end{lstlisting}
 
-\chapter{Прочисть свой код}
+\chapter{Все что нужно знать о React}
+
+\chapter{Делаем код чище}
 
 Чтобы использовать JSX без проблем, необходимо понимать как он работает под капотом и почему его удобно использовать для создания интерфейса.
 
@@ -42,27 +97,37 @@ React предлагает два основных способа описани
 
 Чтобы использовать Babel, его необходимо установить:
 
-npm install --global babel-cli
+\begin{lstlisting}[language=bash]
+	npm install --global babel-cli
+\end{lstlisting}
 
 Чтобы не загромождать npm пакетами систему, можно установить babel в конкретный проект и использовать через npm скрипты. Но для учебных целей установим его глобально.
 
 После установки мы можем транслировать любой JavaScript файл:
 
-babel source.js -o output.js
+\begin{lstlisting}[language=bash]
+	babel source.js -o output.js
+\end{lstlisting}
 
 Одна из сильных сторон Babel - возможность его гибкой конфигурации. Babel всего лишь транслирует один файл в другой, а чтобы были произведены изменения содержимого, нужно сконфигурировать этот процесс.
 
 Для Babel уже создано множество пресетов, в том числе и для JSX и ES2015. Чтобы установить их, необходимо выполнить:
 
-npm install --global babel-preset-es2015 babel-preset-react ,
+\begin{lstlisting}[language=bash]
+npm install --global babel-preset-es2015 babel-preset-react	
+\end{lstlisting}
 
 а также добавить в домашнюю директорию (или в папку с проектом) файл .babelrc с содержимым:
 
-\{
-     "presets": [
-"es2015",
-"react" ]
-\}
+\begin{lstlisting}[language=JavaScript]
+{
+  "presets": [
+    "es2015",
+    "react" 
+  ]
+}
+
+\end{lstlisting}
 
 С этого момента мы можем спокойно использовать все фичи ES2015 и JSX, а потом запускать в браузере транслированный Babel'ем код.
 
@@ -72,11 +137,15 @@ npm install --global babel-preset-es2015 babel-preset-react ,
 
 Мы можем создать \textit{div} элемент с помощью метода \textit{createElement} библиотеки React:
 
-React.createElement('div')
+\begin{lstlisting}
+	React.createElement('div')
+\end{lstlisting}
 
 Также мы можем создать его, используя JSX:
 
-<div />
+\begin{lstlisting}
+	<div />
+\end{lstlisting}
 
 В данном примере JSX код выглядит как HTML. Но нужно понимать одну важную вещь, оба варианта, написанные выше, эквивалентны. 
 
@@ -90,27 +159,35 @@ C JSX мы можем создавать и HTML элементы и React эл�
 
 В первом случае результатом трансляции будет:
 
+\begin{lstlisting}
 React.createElement('button')
+\end{lstlisting}
 
 Во втором случае:
 
+\begin{lstlisting}
 React.createElement(Button)
+\end{lstlisting}
 
 Разница в том, что в первом случае тип DOM элемента передается как строка, а во втором случае мы передаем название переменной, которая должна быть как минимум определена в области видимости данного кода.
 
 \subsection*{Props}
 
 JSX очень удобен, если у DOM или React компонентов есть параметры. В XML в целом гораздо нагляднее передавать параметры элементам:
-
+   
+\begin{lstlisting}
 <img src="https://facebook.github.io/react/img/logo.svg"
    alt="React.js" />
+\end{lstlisting}
 
 Аналогичный код на JavaScript:
 
-%React.createElement("img", {
-%     src: "https://facebook.github.io/react/img/logo.svg",
-%     alt: "React.js"
-%});
+\begin{lstlisting}
+React.createElement("img", {
+     src: "https://facebook.github.io/react/img/logo.svg",
+     alt: "React.js"
+});
+\end{lstlisting}
 
 Читаемость резко падает даже с небольшим количеством параметров.
 
@@ -120,32 +197,41 @@ JSX позволяет определять дочерние элементы, �
 
 Простой пример дочернего элемента - текст внутри тега:
 
+\begin{lstlisting}
 <a href="https://facebook.github.io/react/">Click me!</a>
+\end{lstlisting}
 
 Этот пример будет транслирован в:
 
-%React.createElement(
-%     "a",
-%     { href: "https://facebook.github.io/react/" },
-%     "Click me!"
-%   );
+\begin{lstlisting}
+React.createElement(
+  "a",
+  { href: "https://facebook.github.io/react/" },
+  "Click me!"
+);
+\end{lstlisting}
    
 Если этот тег будет обернут в другой, например div, то JSX будет выглядеть как:
 
- <div>
-     <a href="https://facebook.github.io/react/">Click me!</a>
+\begin{lstlisting}
+<div>
+  <a href="https://facebook.github.io/react/">Click me!</a>
 </div>
+\end{lstlisting}
 
 JavaScript эквивалентный этому JSX:
 
-%React.createElement(
-%     "div",
-%     null,
-%     React.createElement(
-%       "a",
-%       { href: "https://facebook.github.io/react/" },
-%       "Click me!"
-%) );
+\begin{lstlisting}
+React.createElement(
+  "div",
+  null,
+  React.createElement(
+    "a",
+    { href: "https://facebook.github.io/react/" },
+    "Click me!"
+  ) 
+);
+\end{lstlisting}
 
 Достаточно очевидно, что чем сложнее разметка, тем больше JSX улучшает читаемость кода. Однако не следует забывать, что каждому JSX коду соответствует однозначно определенный код на JavaScript.
 
@@ -153,15 +239,19 @@ JavaScript эквивалентный этому JSX:
 
 Для того, чтобы сделать это, выражение должно быть обернуто в фигурные скобки:
 
+\begin{lstlisting}
 <div>
-     Hello, {variable}.
-     I'm a {function()}.
-</div>
+  Hello, {variable}.
+  I'm a {function()}.
+</div>	
+\end{lstlisting}
+
 
 Или например в параметрах элемента:
 
+\begin{lstlisting}
 <a href={this.makeHref()}>Click me!</a>
-
+\end{lstlisting}
 
 \subsection*{Differences with HTML}
 
@@ -173,7 +263,9 @@ JavaScript эквивалентный этому JSX:
 
 Например, вместо атрибута class мы вынуждены использовать className, а вместо for использовать htmlFor:
 
+\begin{lstlisting}
 <label className="awesome-label" htmlFor="name" />
+\end{lstlisting}
 
 Причина этого в том, что слова class и for зарезервированы в языке JavaScript.
 
@@ -183,14 +275,18 @@ JavaScript эквивалентный этому JSX:
 
 Сейчас отметим, что через JSX в атрибуте style не поддерживается CSS строка. Вместо нее React ожидает JavaScript объект, в котором имена стилей переданы в camelCase:
 
+\begin{lstlisting}
 <div style={{ backgroundColor: 'red' }} />
+\end{lstlisting}
 
 \subsubsection*{Root}
 
 Стоит отметить важное отличие JSX от HTML, которое заключается в том, что нельзя создать несколько элементов на одном уровне без оборачивания другим элементом:
 
+\begin{lstlisting}
 <div />
 <div />
+\end{lstlisting}
 
 Этот пример вызовет следующую ошибку:
 
@@ -198,36 +294,42 @@ Adjacent JSX elements must be wrapped in an enclosing tag
 
 Проблема решается добавлением общего элемента:
 
+\begin{lstlisting}
 <div> 
-<div />
-     <div />
-   </div>
+  <div />
+  <div />
+</div>
+\end{lstlisting}
    
 Это происходит из-за того, что каждый элемент в JSX транслируется в React.createElement в JavaScript, а в JavaScript нельзя вернуть из функции результат работы двух последовательных вызовов какой-либо функции.
 
 Сейчас React предоставляет возможность использовать пустой тег, чтобы отрисовывать несколько элементов на одном уровне:
 
+\begin{lstlisting}
 render() {
-    return (
-      <>
-        <ChildA />
-        <ChildB />
-        <ChildC />
-      </>
-    );
-  }
+  return (
+    <>
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </>
+  );
+}
+\end{lstlisting}
   
 \subsubsection*{Spaces}   
 
 Есть еще одна мелочь, которая может вводить в ступор новичков, которая заключается в различной обработке пробельных символов в HTML и JSX.
 
-Например, рассмотрим следующий снипет, который корректен и в HTML и в JSX:
+Например, рассмотрим следующий пример кода, который корректен и в HTML и в JSX:
 
-  <div>
-     <span>foo</span>
-     bar
-     <span>baz</span>
+\begin{lstlisting}
+<div>
+  <span>foo</span>
+  bar
+  <span>baz</span>
 </div>
+\end{lstlisting}
 
 Если открыть этот кусочек напрямую в браузере как HTML файл, то мы увидим foo bar baz. А если мы добавим его в JSX, то после отрисовки будет foobarbaz.
 
@@ -235,13 +337,15 @@ render() {
 
 Основной способ исправить это, добавить еще дочерние элементы, которые будут также являться дочерними элементами:
 
+\begin{lstlisting}
 <div>
-     <span>foo</span>
-     {' '}
-     bar
-     {' '}
-     <span>baz</span>
+  <span>foo</span>
+  {' '}
+  bar
+  {' '}
+  <span>baz</span>
 </div>
+\end{lstlisting}
 
 Таким образом мы добавляем пустые строки, которые являются JavaScript выражениями, чтобы заставить компилятор добавить новые дочерние элементы.
 
@@ -249,13 +353,23 @@ render() {
 
 Также есть небольшое отличие в использовании boolean атрибутов в JSX. Если передать какой-либо атрибут без значения, то JSX поймет, что это boolean атрибут со значением true:
 
+\begin{lstlisting}
 <button disabled />
-   React.createElement("button", { disabled: true });
+\end{lstlisting}
+
+\begin{lstlisting}
+React.createElement("button", { disabled: true });
+\end{lstlisting}
    
 Но в отличие от HTML, чтобы передать атрибут со значением false, необходимо сделать это в явном виде. Если не передать атрибут совсем, то он не попадет в передаваемый объект с атрибутами, и при дальнейшей попытке использования может быть получен undefined вместо false, что приводит к потенциальным ошибкам:
 
+\begin{lstlisting}
 <button disabled={false} />
-   React.createElement("button", { disabled: false });
+\end{lstlisting}
+
+\begin{lstlisting}
+React.createElement("button", { disabled: false });
+\end{lstlisting}
    
 Эта особенность может вводить в заблуждение, так как в HTML принято отсутствие атрибута считать как false значение для этого атрибута. В React следует всегда явным образом указывать значение boolean атрибутов.
 
@@ -267,13 +381,17 @@ render() {
 
 В качестве примера можем посмотреть на код:
 
+\begin{lstlisting}
 const foo = { id: 'bar' }
-   return <div {...foo} />
+return <div {...foo} />
+\end{lstlisting}
    
 который будет транслирован в следующий JSX код:
 
+\begin{lstlisting}
 var foo = { id: 'bar' };
-   return React.createElement('div', foo);
+return React.createElement('div', foo);
+\end{lstlisting}
    
 \subsection*{Шабоны JavaScript}
 
@@ -281,7 +399,9 @@ var foo = { id: 'bar' };
 
 Spread оператор один из примеров использования JavaScript внутри JSX. Но в целом любое JavaScript выражение может быть использовано как атрибут элемента, для этого достаточно обернуть его в фигурные скобки:
 
+\begin{lstlisting}
 <button disabled={errors.length} />
+\end{lstlisting}
 
 \subsection*{Основные паттерны}
 
@@ -293,45 +413,59 @@ Spread оператор один из примеров использовани�
 
 Например, если у нас есть JSX код с множеством вложенных элементов, мы должны предпочитать многострочную запись JSX кода однострочной:
 
+\begin{lstlisting}
 <div>
-     <Header />
-     <div>
-       <Main content={...} />
-     </div>
+  <Header />
+  <div>
+    <Main content={...} />
+  </div>
 </div>
+\end{lstlisting}
 
 Такой вариант гораздо предпочтительнее, чем:
 
+\begin{lstlisting}
 <div><Header /><div><Main content={...} /></div></div>
+\end{lstlisting}
 
 Однако, если дочерний элемент - не React элемент, а текст или переменная, то разумнее будет записать весь тег в одной строке:
 
+\begin{lstlisting}
 <div>
-     <Alert>{message}</Alert>
-     <Button>Close</Button>
+  <Alert>{message}</Alert>
+  <Button>Close</Button>
 </div>
+\end{lstlisting}
 
 Также рекомендуется оборачивать все JSX блоки в круглые скобки. Это необходимо делать, чтобы не было проблем с автоматической вставкой точки с запятой. Проблемы могут возникнуть, если например, немного не аккуратно вернуть. JSX разметку из функции.
 
 Следующий пример отработает корректно, так как return и div находятся на одной линии:
 
+\begin{lstlisting}
 return <div />
+\end{lstlisting}
 
 Но следующий уже отработает непредвиденным образом:
 
+\begin{lstlisting}
 return
      <div />
+\end{lstlisting}
      
 Проблема кроется в том, что во втором случае JSX код будет транслирован в следующий JavaScript код:
 
+\begin{lstlisting}
 return;
 React.createElement("div", null);
+\end{lstlisting}
    
 Чтобы избежать таких проблем, рекомендуется всегда оборачивать многострочные JSX элементы в круглые скобки:
 
+\begin{lstlisting}
 return (
-     <div />
+  <div />
 )
+\end{lstlisting}
 
 \subsubsection*{Multi-properties}
 
@@ -339,11 +473,13 @@ return (
 
 Поэтому стоит стараться писать каждый атрибут в новой строке, а закрывающий тег выравнивать с открывающим (прим.пер. также хороший вариант - оставлять закрывающий тег на одной строке с последним атрибутом):
 
+\begin{lstlisting}
 <button
-     foo="bar"
-     veryLongPropertyName="baz"
-     onSomething={this.handleSomething}
+  foo="bar"
+  veryLongPropertyName="baz"
+  onSomething={this.handleSomething}
 />
+\end{lstlisting}
 
 \subsubsection*{Условные операторы}
 
@@ -351,107 +487,129 @@ return (
 
 Предположим, что нам нужно отрисовать кнопку logout только для авторизованного пользователя. Простой вариант решения этой проблемы может выглядеть следующим образом:
 
+\begin{lstlisting}
 let button
-   if (isLoggedIn) {
-     button = <LogoutButton />
-   }
-   return <div>{button}</div>
+if (isLoggedIn) {
+  button = <LogoutButton />
+}
+return <div>{button}</div>
+\end{lstlisting}
    
 Это работает, но этот вариант плохо читается, если у нас есть множество условий и множество элементов.
 
 Также мы можем использовать ленивую проверку логических выражений в JavaScript:
 
-%  <div>
-%     {isLoggedIn && <LoginButton />}
-%</div>
+\begin{lstlisting}
+<div>
+  {isLoggedIn && <LoginButton />}
+</div>
+\end{lstlisting}
 
 Это работает, так как в случае false в isLoggedIn JavaScript не будет проверять остальное выражение, а если true, тогда вызовется createElement для LoginButton и результат ее работы вернется как результат всего выражения.
 
 Если мы хотим, чтобы в условии была также альтернативная ветка, например чтобы показать разные кнопки для авторизованного и неавторизованного пользователей, то мы может использовать if...else в JavaScript:
 
-
-   let button
-   if (isLoggedIn) {
-     button = <LogoutButton />
-   } else {
-     button = <LoginButton />
-   }
-   return <div>{button}</div>
+\begin{lstlisting}
+let button
+if (isLoggedIn) {
+  button = <LogoutButton />
+} else {
+  button = <LoginButton />
+}
+return <div>{button}</div>
+\end{lstlisting}
    
 Помимо этого мы можем использовать тернарный оператор, чтобы сделать код компактнее:
 
-
-   <div>
-     {isLoggedIn ? <LogoutButton /> : <LoginButton />}
+\begin{lstlisting}
+<div>
+  {isLoggedIn ? <LogoutButton /> : <LoginButton />}
 </div>
+\end{lstlisting}
 
 Можно найти множество примеров использования тернарных операторов в известных репозиториях, например в Redux(https://github.com/reactjs/redux/blob/master/examples/real-world/src/components/List.js\#L25), где он используется для показа разного текста в зависимости от того, грузятся ли данные по сети:
 
+\begin{lstlisting}
 <button [...]>
-{isFetching ? 'Loading...' : 'Load More'}
-   </button>
+  {isFetching ? 'Loading...' : 'Load More'}
+</button>
+\end{lstlisting}
 
 Посмотрим, что произойдет, если логическое выражение будет становиться сложнее и в нем будут задействованы разные переменные и логические операции:
 
-%<div>
-%    {dataIsReady && (isAdmin || userHasPermissions) &&
-%      <SecretData />
-    %}
-%</div>
+\begin{lstlisting}
+<div>
+  {dataIsReady && (isAdmin || userHasPermissions) && 
+    <SecretData />
+}
+</div>
+\end{lstlisting}
 
 Это решение все еще может быть неплохим, но читаемость его начинает падать. Для решения этой проблемы можно создать вспомогательную функцию внутри компонента и использовать ее название для пояснения логики, сокрытой в теле:
 
-%canShowSecretData() {
-%     const { dataIsReady, isAdmin, userHasPermissions } = this.props
- %    return dataIsReady && (isAdmin || userHasPermissions)
-%}
-%   <div>
-%     {this.canShowSecretData() && <SecretData />}
-%</div>
+\begin{lstlisting}
+canShowSecretData() {
+  const { dataIsReady, isAdmin, userHasPermissions } = this.props
+  return dataIsReady && (isAdmin || userHasPermissions)
+}
+<div>
+  {this.canShowSecretData() && <SecretData />}
+</div>
+\end{lstlisting}
 
 Код стал более читаемым, и даже если вернуться к нему через полгода, достаточно будет прочесть название функции и опустить чтение логики внутри.
 
 Если вы не любите использовать функцию, то ее можно заменить геттеро, который сделат код более элегантным (прим.пер. а может быть и нет...):
 
-%get canShowSecretData() {
- %    const { dataIsReady, isAdmin, userHasPermissions } = this.props
-  %   return dataIsReady && (isAdmin || userHasPermissions)
-%}
- %  <div>
-  %   {this.canShowSecretData && <SecretData />}
-%</div>
+\begin{lstlisting}
+get canShowSecretData() {
+  const { dataIsReady, isAdmin, userHasPermissions } = this.props
+  return dataIsReady && (isAdmin || userHasPermissions)
+}
+<div>
+  {this.canShowSecretData && <SecretData />}
+</div>
+\end{lstlisting}
 
 То же самое относится к вычисляемым значениям. Например, если у нас есть два значения, валюта и стоимость, и нам нужно объединить их в одну строку, то мы можем вынести эту операцию в отдельный метод.
 
-%getPrice() {
-%     return `${this.props.currency}${this.props.value}`
-%}
-%   <div>{this.getPrice()}</div>
+\begin{lstlisting}
+getPrice() {
+  return `${this.props.currency}${this.props.value}`
+}
+<div>{this.getPrice()}</div>
+\end{lstlisting}
 
 Это также удобнее тестировать, если внутри этого метода есть дополнительная логика.
 
 То же самое можно сделать с помощью геттеров аналогично предыдущим примерам:
 
-%get price() {
-%     return `${this.props.currency}${this.props.value}`
-%}
-%   <div>{this.price}</div>
+\begin{lstlisting}
+get price() {
+  return `${this.props.currency}${this.props.value}`
+}
+<div>{this.price}</div>
+\end{lstlisting}
 
 Есть еще множество решений проблемы ветвления внутри React компонент, которое требует использования сторонних библиотек. В общем случае стоит аккуратно вносить новые зависимости в проект, так как они могут увеличить размер бандла, принести проблему на смене версий и увеличить порог входа в проект, но на что не пойдешь ради увеличения читаемости кода (прим.пер. используемые тут библиотеки довольно просты и имеет смысл реализовать их самостоятельно в учебных целях).
 
 Первый вариант - использовать библиотеку render-if, которую можно установить командой:
-
-\textbf{npm install --save render-if}
+\begin{lstlisting}[language=bash]
+npm install --save render-if
+\end{lstlisting}
 
 Мы можем легко использовать ее в проекте по аналогии с примером ниже:
 
-%const { dataIsReady, isAdmin, userHasPermissions } = this.props
-%   const canShowSecretData = renderIf(
- %    dataIsReady && (isAdmin || userHasPermissions)
-  % )
-   %<div>
-    % {canShowSecretData(<SecretData />)}
-%</div>
+\begin{lstlisting}
+const { dataIsReady, isAdmin, userHasPermissions } = this.props
+const canShowSecretData = renderIf(
+  dataIsReady && (isAdmin || userHasPermissions)
+)
+<div>
+  {canShowSecretData(<SecretData />)}
+</div>
+\end{lstlisting}
+
 
 Мы оборачиваем наше условии внутри renderIf функции.
 
@@ -463,21 +621,26 @@ let button
 
 Данная библиотека устанавливается командой:
 
-\textbf{npm install --save react-only-if}
+\begin{lstlisting}[language=bash]
+npm install --save react-only-if
+\end{lstlisting}
 
 После установки мы можем использовать ее внутри нашего приложения следующим образом:
 
-%const SecretDataOnlyIf = onlyIf(
-%     ({ dataIsReady, isAdmin, userHasPermissions }) => {
-%       return dataIsReady && (isAdmin || userHasPermissions)
-%     }
-%   )(SecretData)
-%   <div>
-%     <SecretDataOnlyIf
-%       dataIsReady={...}
-%       isAdmin={...}
-%       userHasPermissions={...}
-%/> </div>
+\begin{lstlisting}
+const SecretDataOnlyIf = onlyIf(
+  ({ dataIsReady, isAdmin, userHasPermissions }) => {
+    return dataIsReady && (isAdmin || userHasPermissions)
+  }
+)(SecretData)
+<div>
+  <SecretDataOnlyIf
+    dataIsReady={...}
+    isAdmin={...}
+    userHasPermissions={...}
+  /> 
+</div>
+\end{lstlisting}
 
 Как можно заметить, в этом случае внутри исходного компонента нет логики совсем, что повышает его тестируемость.
 
@@ -491,9 +654,11 @@ let button
 
 Самым распространенным способом создать массив элементов является использование операций над множествами объектов языка JavaScript:
 
-%<ul>
-%     {users.map(user =><li>{user.name}</li>)}
-%</ul>
+\begin{lstlisting}
+<ul>
+  {users.map(user =><li>{user.name}</li>)}
+</ul>
+\end{lstlisting}
 
 Этот пример прост, но показывает большую гибкость использования JSX и JavaScript для генерации HTML.
 
@@ -509,47 +674,59 @@ let button
 
 Прежде всего нам нужно добавить ее в проет:
 
-\textbf{npm install --save jsx-control-statements}
+\begin{lstlisting}[language=bash]
+npm install --save jsx-control-statements
+\end{lstlisting}
 
 Также его необходимо добавить в .babelrc, чтобы babel знал, что у нас появились новые правила компиляции:
 
+\begin{lstlisting}
 "plugins": ["jsx-control-statements"]
+\end{lstlisting}
 
 С этого момента мы можем использовать новый синтакс и babel будет транслировать его вместе со стандартным JSX.
 
-Условноый оператор, написанный с использование этого плагина, будет выглядеть следующим образом:
+Условный оператор, написанный с использование этого плагина, будет выглядеть следующим образом:
 
-%<If condition={this.canShowSecretData}>
-%     <SecretData />
-%</If>
+\begin{lstlisting}
+<If condition={this.canShowSecretData}>
+  <SecretData />
+</If>
+\end{lstlisting}
 
 Этот код будет транслирован в обычный тернарный оператор в JavaScript:
 
-%{canShowSecretData ? <SecretData /> : null}
+\begin{lstlisting}
+{canShowSecretData ? <SecretData /> : null}
+\end{lstlisting}
 
 Для ситуации, когда нам нужно иметь возможность выбрать элемент из нескольких в зависимости от различных условий, в данной библиотеке есть компонент Choose:
 
-%<Choose>
-%     <When condition={...}>
-%       <span>if</span>
-%     </When>
-%     <When condition={...}>
-%       <span>else if</span>
-%     </When>
-%     <Otherwise>
-%       <span>else</span>
-%     </Otherwise>
-%</Choose>
+\begin{lstlisting}
+<Choose>
+  <When condition={...}>
+    <span>if</span>
+  </When>
+  <When condition={...}>
+    <span>else if</span>
+  </When>
+  <Otherwise>
+    <span>else</span>
+  </Otherwise>
+</Choose>
+\end{lstlisting}
 
 Не стоит забывать, что компоненты Choose, When и Otherwise не являются React компонентами в привычном для нас понимании, это всего лишь синтаксис, который будет скомпилирован в большой набор тернарных операторов.
 
 Также есть специальный компонент For (который также будет скомпилирован в JavaScript код) для работы с коллекциями объектов:
 
-%<ul>
-%     <For each="user" of={this.props.users}>
-%       <li>{user.name}</li>
-%     </For>
-%</ul>
+\begin{lstlisting}
+<ul>
+  <For each="user" of={this.props.users}>
+    <li>{user.name}</li>
+  </For>
+</ul>
+\end{lstlisting}
 
 Тут тоже никакой магии, после компиляции этот блок превратится в вызов метода map.
 
@@ -565,20 +742,23 @@ let button
 
 Что мы можем сделать, если наши методы отображения компонент становятся слишком большими. Один из вариантов - разделить большой метод render на небольшие функции внутри одного компонента:
 
-% renderUserMenu() {
-%     // JSX for user menu
-%}
-%   renderAdminMenu() {
-%     // JSX for admin menu
-%}
-%   render() {
-%     return (
-%       <div>
-%         <h1>Welcome back!</h1>
-%         {this.userExists && this.renderUserMenu()}
-%         {this.userIsAdmin && this.renderAdminMenu()}
-%</div> )
-%}
+\begin{lstlisting}
+renderUserMenu() {
+    // JSX for user menu
+}
+renderAdminMenu() {
+    // JSX for admin menu
+}
+render() {
+  return (
+    <div>
+      <h1>Welcome back!</h1>
+      {this.userExists && this.renderUserMenu()}
+      {this.userIsAdmin && this.renderAdminMenu()}
+    </div> 
+  )
+}
+\end{lstlisting}
 
 Это далеко не идеальное решение, но на практике, если нет возможности разделить компонент на более мелкие, это позволяет сохранять метод render чище.
 
