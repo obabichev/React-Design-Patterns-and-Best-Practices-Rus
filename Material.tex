@@ -3,6 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
 
+\usepackage{pdfpages}
+
 \usepackage{graphicx}
 \usepackage{hyperref}
 
@@ -45,6 +47,10 @@
 
 \begin{document}
 
+\includepdf[offset=0 0]{images/title-pdf}
+
+\include{title}
+
 %\begin{lstlisting}[caption=My Javascript Example] %example of listining
 %Name.prototype = {
 %  methodName: function(params){
@@ -62,8 +68,10 @@
 %}
 %\end{lstlisting}
 
-\tableofcontents
+\include{author}
 
+\tableofcontents
+	
 \include{chapter1}
 \include{chapter2}
 \include{chapter3}
